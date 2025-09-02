@@ -1,0 +1,98 @@
+# Projet de Gestion de Comptes et Authentification Sécurisée
+
+Ce projet illustre un système complet de **création, gestion et authentification de comptes** sécurisé avec cryptage et gestion des utilisateurs via une interface web.
+
+---
+
+## Table des matières
+
+- [Présentation](#présentation)
+- [Architecture](#architecture)
+- [Étapes de Création de Compte](#étapes-de-création-de-compte)
+- [Étapes d'Authentification de Compte](#étapes-dauthentification-de-compte)
+- [Fonctionnalités Utilisateur](#fonctionnalités-utilisateur)
+- [API et Contrôleurs](#api-et-contrôleurs)
+- [Technologies utilisées](#technologies-utilisées)
+- [Installation](#installation)
+- [Usage](#usage)
+
+---
+
+## Présentation
+
+Ce projet vise à sécuriser les comptes utilisateurs et à gérer leurs données. Les mots de passe et les clés sont cryptés avant d'être stockés. L'interface web permet une interaction simple et sécurisée pour les utilisateurs.
+
+---
+
+## Architecture
+
+Le projet se compose des éléments suivants :
+
+- **Utilisateur** : Interagit avec le système, consulte et gère ses données.
+- **Serveur** : Reçoit les requêtes encryptées et les transmet à la base de données.
+- **Base de données** : Stocke les informations des utilisateurs, mots de passe et master keys.
+
+---
+
+## Étapes de Création de Compte
+
+1. **Connexion avec un compte existant** (Google ou autre)  
+   → Requêtes cryptées vers le serveur.
+2. **Création du mot de passe**  
+   → Vérification de la validité et envoi crypté.
+3. **Accès à l'interface web**  
+   → L'utilisateur interagit avec l'interface pour finaliser son compte.
+4. **Création du mot de passe Master Key**  
+   → Cryptage et stockage sécurisé dans la base de données.
+5. **Validation finale**  
+   → Confirmation de la création du compte.
+
+---
+
+## Étapes d'Authentification de Compte
+
+1. **Utilisation du mail**  
+   → Vérification des informations saisies.
+2. **Connexion avec Master Key**  
+   → Requêtes cryptées vers le serveur pour authentification.
+3. **Vérification du Master Key**  
+   → Si correct, accès à l'interface web.
+4. **Accès à l'interface web**  
+   → L'utilisateur est authentifié et peut utiliser toutes les fonctionnalités.
+
+---
+
+## Fonctionnalités Utilisateur
+
+- Consulter ses données
+- Effectuer des opérations CRUD
+- Télécharger ses données (optionnel)
+- Partager via email
+- Gérer ses dossiers
+
+---
+
+## API et Contrôleurs
+
+Les endpoints principaux sont organisés comme suit :
+
+- **/api/user** : createController, updateController, deleteController, getController
+- **/api/auth** : verificationController, masterKeyController
+- **/api/creationcompte** : Endpoint pour la création complète d'un compte
+
+---
+
+## Technologies utilisées
+
+- Serveur web (Node.js / Express)
+- Base de données sécurisée (ex: MongoDB)
+- Cryptage des mots de passe et clés (AES, bcrypt, ou autre)
+- Interface web responsive (HTML, CSS, JS)
+
+---
+
+## Installation
+
+1. Cloner le dépôt :
+```bash
+git clone <repo-url>

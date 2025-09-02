@@ -1,0 +1,19 @@
+{
+  "compilerOptions": {
+    "target": "ES2020", // Bonne compatibilité moderne
+    "module": "commonjs", // Compatible Node.js
+    "rootDir": "./src", // Ton dossier source
+    "outDir": "./dist", // Dossier de build
+    "strict": true, // Active toutes les vérifications strictes
+    "esModuleInterop": true, // Pour pouvoir faire import express from 'express'
+    "skipLibCheck": true, // Ignore les vérifications des types dans node_modules
+    "forceConsistentCasingInFileNames": true, // Bonne pratique pour éviter les erreurs sur Linux
+    "sourceMap": true
+  },
+  "include": [
+    "src"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
+}
