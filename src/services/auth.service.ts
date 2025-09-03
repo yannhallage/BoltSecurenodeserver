@@ -22,7 +22,7 @@ class AuthService {
             { upsert: true, new: true }
         );
 
-        await sendEmail('contact.devhllg@gmail.com', `Votre code OTP est : ${code}`);
+        await sendEmail(`${email}`, `Votre code OTP est : ${code}`);
     }
 
     // Étape 2 : vérifier OTP et définir mot de passe utilisateur
