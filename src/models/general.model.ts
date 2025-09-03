@@ -48,13 +48,21 @@ export interface ICreditCard extends Document {
 
 
 export interface IDossier extends Document {
-  titre: string
-  description?: string
-  proprietaireId: mongoose.Types.ObjectId // Utilisateur
-  passwords: mongoose.Types.ObjectId[]    // liste de Password
-  dateCreation: Date
-  dateModification: Date
+    titre: string
+    description?: string
+    proprietaireId: mongoose.Types.ObjectId // Utilisateur
+    passwords: mongoose.Types.ObjectId[]    // liste de Password
+    dateCreation: Date
+    dateModification: Date
 }
+
+
+export interface IOtp extends Document {
+    email: string
+    code: string
+    expiresAt: Date
+}
+
 /* ------------------------------
    Schemas Mongoose
 --------------------------------*/
@@ -62,8 +70,8 @@ export interface IDossier extends Document {
 // Utilisateur
 const UtilisateurSchema: Schema = new Schema<IUtilisateur>({
     email: { type: String, required: true, unique: true },
-    motDePasse: { type: String, required: true },
-    masterKey: { type: String, required: true },
+    motDePasse: { type: String, required: false, default: "" },
+    masterKey: { type: String, required: false, default: "" },
     compteGoogle: { type: String },
     dateCreation: { type: Date, default: Date.now },
     dateDerniereConnexion: { type: Date, default: Date.now },
@@ -117,6 +125,12 @@ const DossierSchema: Schema = new Schema<IDossier>({
     dateCreation: { type: Date, default: Date.now },
     dateModification: { type: Date, default: Date.now }
 })
+
+const OtpSchema: Schema = new Schema<IOtp>({
+    email: { type: String, required: true },
+    code: { type: String, required: true },
+    expiresAt: { type: Date, required: true }
+})
 /* ------------------------------
    Models
 --------------------------------*/
@@ -125,3 +139,4 @@ export const Utilisateur: Model<IUtilisateur> = mongoose.model<IUtilisateur>("Ut
 export const Password: Model<IPassword> = mongoose.model<IPassword>("Password", PasswordSchema)
 export const CreditCard: Model<ICreditCard> = mongoose.model<ICreditCard>("CreditCard", CreditCardSchema)
 export const Dossier: Model<IDossier> = mongoose.model<IDossier>("Dossier", DossierSchema)
+export const Otp: Model<IOtp> = mongoose.model<IOtp>("Otp", OtpSchema)

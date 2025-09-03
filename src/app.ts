@@ -5,6 +5,7 @@ import helmet from 'helmet';
 import rateLimit from 'express-rate-limit';
 import morgan from 'morgan';
 import dotenv from 'dotenv';
+import AuthRoute from './routes/auth.routes';
 
 dotenv.config();
 
@@ -51,9 +52,7 @@ class App {
         });
 
         // Ici tu ajoutes tes autres routes
-        // this.app.use('/api/access/management', AuthAndRegisterUsers)
-        // this.app.use('/api/access/pharma', AccesPharmacy)
-        // etc.
+        this.app.use('/api/creationcompte', AuthRoute)
 
         // Catch-all route
         this.app.use(/.*/, (req: any, res: any) => {
