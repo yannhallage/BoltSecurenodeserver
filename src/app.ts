@@ -7,6 +7,7 @@ import morgan from 'morgan';
 import dotenv from 'dotenv';
 import AccountRoute from './routes/account.routes';
 import AuthRoute from './routes/auth.routes';
+import OperationsRoute from './routes/operations.routes';
 
 dotenv.config();
 
@@ -53,6 +54,7 @@ class App {
 
         this.app.use('/api/creationcompte', AccountRoute)
         this.app.use('/api/auth', AuthRoute)
+        this.app.use('/api/operations', OperationsRoute)
 
         // Catch-all route
         this.app.use(/.*/, (req: any, res: any) => {
