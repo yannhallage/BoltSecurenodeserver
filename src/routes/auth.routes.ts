@@ -3,8 +3,8 @@ import AuthController from "../controllers/auth.controller";
 
 const router = Router();
 
-router.post("/register/email", AuthController.sendOtp);
-router.post("/register/password", AuthController.verifyOtpAndSetPassword);
-router.post("/register/master-key", AuthController.setMasterKey);
+router.post("/authentification/email", AuthController.VerifyEmail);
+router.post("/authentification/password", AuthController.VerifyPassword);
+router.post("/authentification/master-key", AuthController.VerifyMasterKey);
 
 export default router;

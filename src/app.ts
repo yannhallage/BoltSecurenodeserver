@@ -5,6 +5,7 @@ import helmet from 'helmet';
 import rateLimit from 'express-rate-limit';
 import morgan from 'morgan';
 import dotenv from 'dotenv';
+import AccountRoute from './routes/account.routes';
 import AuthRoute from './routes/auth.routes';
 
 dotenv.config();
@@ -30,7 +31,7 @@ class App {
         this.app.use(morgan("dev"));
 
         const limiter = rateLimit({
-            windowMs: 15 * 60 * 1000, // 15 minutes
+            windowMs: 15 * 60 * 1000,
             max: 100,
             message: "Trop de requêtes, veuillez réessayer plus tard."
         });
@@ -41,7 +42,6 @@ class App {
     private initializeRoutes(): void {
         console.log('Initializing routes...');
 
-        // Exemple route santé
         this.app.get('/health', (req: any, res: any) => {
             console.log('Handling /health route');
             res.status(200).json({
@@ -51,8 +51,8 @@ class App {
             });
         });
 
-        // Ici tu ajoutes tes autres routes
-        this.app.use('/api/creationcompte', AuthRoute)
+        this.app.use('/api/creationcompte', AccountRoute)
+        this.app.use('/api/auth', AuthRoute)
 
         // Catch-all route
         this.app.use(/.*/, (req: any, res: any) => {
