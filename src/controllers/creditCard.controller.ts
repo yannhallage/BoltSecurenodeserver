@@ -8,7 +8,7 @@ export default class CreditCardController {
 
     static async createCreditCard(req: Request, res: Response) {
         try {
-            const CreditCardSendingData  : z.infer<typeof CreditCardZod> = req.body;
+         ;   const CreditCardSendingData  : z.infer<typeof CreditCardZod> = req.body;
             const creditCard = await CreditCardService.createCreditCard(CreditCardSendingData)
             return res.status(201).json(creditCard);
         } catch (error: any) {
