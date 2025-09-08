@@ -4,7 +4,7 @@ import { IAuthEmailInput, IAuthmotDePasseInput, IAuthOtpVerificationInput, IAuth
 
 class AuthController {
 
-    static async sendOtp(req: Request, res: Response) {
+    static async Mailing(req: Request, res: Response) {
         try {
             const input: IAuthEmailInput = req.body;
             // console.log(input)
@@ -28,9 +28,11 @@ class AuthController {
     static async verifyOtpAndSetPassword(req: Request, res: Response) {
         try {
             const input: IAuthmotDePasseInput = req.body;
+            // console.log(input)
             const user = await AccountService.verifyOtpAndSetPassword(input);
             return res.status(200).json({ userId: user._id, email: user.email });
         } catch (err: any) {
+            console.log(err.message)
             return res.status(400).json({ error: err.message });
         }
     }
@@ -38,6 +40,7 @@ class AuthController {
     static async setMasterKey(req: Request, res: Response) {
         try {
             const input: IAuthMasterKeyInput = req.body;
+            // console.log(input)
             const user = await AccountService.setMasterKey(input);
             return res.status(200).json({ userId: user._id, email: user.email });
         } catch (err: any) {

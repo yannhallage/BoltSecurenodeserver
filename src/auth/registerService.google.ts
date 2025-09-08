@@ -1,5 +1,6 @@
 import axios from "axios";
 import jwt from "jsonwebtoken";
+import AccountService from "../services/account.service";
 import { GoogleUser, AuthResponse } from "../types/google.type";
 
 const GOOGLE_TOKEN_INFO_URL = "https://oauth2.googleapis.com/tokeninfo?id_token=";
@@ -24,6 +25,8 @@ export class AuthService {
                 { expiresIn: "1h" }
             );
 
+            await AccountService.sendOtp(data.email);
+            console.log("OTP envoyé avec succès.")
             return {
                 token: internalToken,
                 user: data,

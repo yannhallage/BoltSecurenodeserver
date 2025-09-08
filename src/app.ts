@@ -19,7 +19,7 @@ class App {
 
     constructor() {
         this.app = express();
-        this.port = parseInt(process.env.PORT || '2001', 10);
+        this.port = parseInt(process.env.PORT || '2002', 10);
 
         this.initializeMiddlewares();
         this.initializeRoutes();
