@@ -42,7 +42,7 @@ class AuthController {
             const input: IAuthMasterKeyInput = req.body;
             // console.log(input)
             const user = await AccountService.setMasterKey(input);
-            return res.status(200).json({ userId: user._id, email: user.email });
+            return res.status(200).json({ user });
         } catch (err: any) {
             return res.status(400).json({ error: err.message });
         }

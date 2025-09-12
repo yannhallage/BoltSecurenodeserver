@@ -1,4 +1,5 @@
 import { Utilisateur, Otp } from "../models/general.model";
+import { CreerToken } from "../utils/creerToken";
 import crypto from "crypto";
 import { sendEmail } from "../mails/mail";
 import bcrypt from "bcrypt";
@@ -74,7 +75,7 @@ class AccountService {
     }
 
     static async setMasterKey(input: { email: string; motDePasse: string; masterKey: string; otp: string }) {
-        // Vérification des champs
+
         if (!input.email || !input.motDePasse || !input.masterKey || !input.otp) {
             console.log(input.email, input.motDePasse, input.masterKey, input.otp)
             throw new Error("Champs manquants (email, motDePasse, masterKey, otp)");
@@ -83,16 +84,23 @@ class AccountService {
         const user = await Utilisateur.findOne({ email: input.email });
         if (!user) throw new Error("Utilisateur introuvable");
 
-        // Vérifier le mot de passe
         const validPassword = await bcrypt.compare(input.motDePasse, user.motDePasse);
         if (!validPassword) throw new Error("Mot de passe incorrect");
 
-        // Hasher la masterKey
         const hashedMasterKey = await bcrypt.hash(input.masterKey, 10);
         user.masterKey = hashedMasterKey;
 
         await user.save();
-        return user;
+
+        const token_connexion = CreerToken(
+            user.motDePasse,
+            user.email,
+            user.masterKey
+        )
+        return {
+            user,
+            token_connexion
+        };
     }
 
 }

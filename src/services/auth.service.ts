@@ -4,9 +4,10 @@ import { LoginEmail, LoginPasswordUserZod, LoginMasterKeyUserZod } from "../sche
 import { z } from "zod";
 import bcrypt from "bcrypt";
 import { randomInt } from "crypto";
+import { CreerToken } from "../utils/creerToken";
 
 export default class AuthService {
-    
+
     static async VerifyEmail(input: z.infer<typeof LoginEmail>) {
         const { email } = LoginEmail.parse(input);
 
@@ -40,7 +41,15 @@ export default class AuthService {
         const valid = await bcrypt.compare(masterKey, user.masterKey);
         if (!valid) throw new Error("Mot de passe incorrect");
 
-
-        return { message: "Authentification réussie (masterKey)", user };
+        const token_connexion = CreerToken(
+            user.motDePasse,
+            user.email,
+            user.masterKey
+        )
+        return {
+            message: "Authentification réussie (masterKey)",
+            user,
+            token_connexion
+        };
     }
 }

@@ -1,7 +1,8 @@
 import axios from "axios";
-import jwt from "jsonwebtoken";
+// import jwt from "jsonwebtoken";
 import AccountService from "../services/account.service";
 import { GoogleUser, AuthResponse } from "../types/google.type";
+import { CreerToken } from "../utils/creerToken";
 
 const GOOGLE_TOKEN_INFO_URL = "https://oauth2.googleapis.com/tokeninfo?id_token=";
 
@@ -15,15 +16,7 @@ export class AuthService {
                 throw new Error("Email non vérifié par Google");
             }
 
-            const internalToken = jwt.sign(
-                {
-                    sub: data.sub,
-                    email: data.email,
-                    name: data.name,
-                },
-                process.env.JWT_SECRET || "supersecret",
-                { expiresIn: "1h" }
-            );
+            const internalToken = CreerToken(data.sub, data.email, data.name)
 
             await AccountService.sendOtp(data.email);
             console.log("OTP envoyé avec succès.")
