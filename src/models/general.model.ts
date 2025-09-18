@@ -84,6 +84,7 @@ const PasswordSchema: Schema = new Schema({
     titre: { type: String, required: true },
     identifiant: { type: String, required: true },
     motDePasse: { type: String, required: true },
+    trash: { type:Boolean, required: true },
     reference: {
         type: {
             type: String,

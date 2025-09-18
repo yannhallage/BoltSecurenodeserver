@@ -15,7 +15,7 @@ export default class PasswordService {
 
         const password = new Password(data);
         await password.save();
-        return password;
+        return "mot de passe crée avec success !";
     }
 
     static async getAllByUser(userId: string) {

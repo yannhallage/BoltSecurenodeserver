@@ -26,6 +26,7 @@ export const PasswordZod = z.object({
     proprietaireId: z.string(), // ObjectId string
     dossierId: z.string().optional(), // ObjectId string
     dateCreation: z.date().optional(),
+    trash: { type: Boolean, required: true },
     dateModification: z.date().optional()
 })
 
