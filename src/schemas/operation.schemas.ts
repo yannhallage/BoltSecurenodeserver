@@ -16,18 +16,19 @@ export const UtilisateurZod = z.object({
 export const PasswordZod = z.object({
     titre: z.string().min(1),
     identifiant: z.string().min(1),
-    motDePasse: z.string().min(8), // chiffré
+    motDePasse: z.string().min(8),
     reference: z
         .object({
             type: z.enum(["email", "reseau_social", "autre"]),
             valeur: z.string().min(1)
         })
         .optional(),
-    proprietaireId: z.string(), // ObjectId string
-    dossierId: z.string().optional(), // ObjectId string
+    proprietaireId: z.string(),
+    dossierId: z.string().optional(),
     dateCreation: z.date().optional(),
-    trash: { type: Boolean, required: true },
-    dateModification: z.date().optional()
+    dateModification: z.date().optional(),
+    trash: z.boolean(),
+
 })
 
 // CreditCard
@@ -39,7 +40,7 @@ export const CreditCardZod = z.object({
     cvc: z.string().min(3), // chiffré
     reference: z
         .object({
-            type: z.enum(["reseau_social", "banque", "autre"]),
+            type: z.enum(["reseau_social", "carte_credit", "autre"]),
             valeur: z.string().min(1)
         })
         .optional(),

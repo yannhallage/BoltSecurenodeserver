@@ -103,13 +103,13 @@ const PasswordSchema: Schema = new Schema({
 const CreditCardSchema: Schema = new Schema<ICreditCard>({
     titre: { type: String, required: true },
     nomTitulaire: { type: String, required: true },
-    numeroCarte: { type: String, required: true }, // doit être chiffré
+    numeroCarte: { type: String, required: true },
     dateExpiration: { type: String, required: true },
-    cvc: { type: String, required: true }, // doit être chiffré
+    cvc: { type: String, required: true },
     reference: {
         type: {
             type: String,
-            enum: ["reseau_social", "banque", "autre"]
+            enum: ["reseau_social", "carte_credit", "autre"]
         },
         valeur: String
     },

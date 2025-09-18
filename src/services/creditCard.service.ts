@@ -12,14 +12,18 @@ export default class CreditCardService {
         // Hasher les champs sensibles
         data.numeroCarte = await bcrypt.hash(data.numeroCarte, 10);
         data.cvc = await bcrypt.hash(data.cvc, 10);
-
+        
         const creditCard = new CreditCard(data);
         await creditCard.save();
         return creditCard;
     }
 
     static async getAllByUserCreditCard(userId: string) {
-        return await CreditCard.find({ proprietaireId: userId });
+        // return await CreditCard.find({ proprietaireId: userId });
+        const creditCardsRecup = await CreditCard.find({ proprietaireId: userId });
+        if (!creditCardsRecup) throw new Error("Carte introuvable");
+
+        return creditCardsRecup;
     }
 
     static async getByIdCreditCard(id: string) {
