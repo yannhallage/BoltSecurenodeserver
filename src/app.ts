@@ -28,10 +28,24 @@ class App {
 
     private initializeMiddlewares(): void {
         this.app.use(helmet());
+
+        const allowedOrigins = [
+            "http://localhost:5173",
+            "http://localhost:5174",
+            "chrome-extension://ngdibmigonmdjlochhiapigflkgofobi"
+        ];
+
         this.app.use(cors({
-            origin: "http://localhost:5173",
+            origin: (origin, callback) => {
+                if (!origin || allowedOrigins.includes(origin)) {
+                    callback(null, true);
+                } else {
+                    callback(new Error("Not allowed by CORS"));
+                }
+            },
             credentials: true
         }));
+
         this.app.use(express.json({ limit: "10mb" }));
         this.app.use(express.urlencoded({ extended: true, limit: "10mb" }));
         this.app.use(morgan("dev"));
@@ -57,6 +71,7 @@ class App {
         });
         this.app.use("/api/", limiter);
     }
+
 
     private initializeRoutes(): void {
         console.log('Initializing routes...');
